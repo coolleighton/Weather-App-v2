@@ -1,7 +1,18 @@
 // API KEY = be9b75a065e73e1cac727dcc8207ba9e //
+
+// selectors and variables //
 const city = "cardiff";
-let lat = "";
-let lon = "";
+const searchBarButton = document.querySelector("#search-bar-btn");
+const SearchBarInput = document.querySelector("#search-bar-text");
+
+// search bar functions //
+searchBarButton.addEventListener("click", () => {
+  if (SearchBarInput.value) {
+    console.log(SearchBarInput.value);
+  } else {
+    console.log("please enter a city");
+  }
+});
 
 // function that gets the lat + lon of a city and uses it as a parameter to get weather data //
 
@@ -13,11 +24,13 @@ async function getWeatherDataByCity(city) {
   );
 
   response.json().then(function (response) {
-    lat = response[0].lat;
-    lon = response[0].lon;
+    let lat = response[0].lat;
+    let lon = response[0].lon;
     getWeatherData(lat, lon);
   });
 }
+
+// function that gets weather data from lat + lon
 
 async function getWeatherData(lat, lon) {
   const response = await fetch(

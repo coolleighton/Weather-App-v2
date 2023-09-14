@@ -13,6 +13,8 @@ body {
   overflow-y: hidden;
 }
 
+/* Header */
+
 header {
   display: flex;
   justify-content: space-between;
@@ -24,8 +26,9 @@ header img {
   height: 40px;
 }
 
-header button {
+.units-buttons {
   width: 80px;
+  height: 40px;
   color: white;
   background-color: #142d41;
   padding: 5px;
@@ -36,8 +39,48 @@ header button {
   font-weight: 500;
 }
 
-header button:hover {
+.units-buttons:hover {
   transition: 0.3s;
   cursor: pointer;
   border: 2px solid #cecece;
+}
+
+.search-bar {
+  background-color: #142d41;
+  display: flex;
+  padding: 0 10px 0 20px;
+  border-radius: 25px;
+  align-items: center;
+  height: 40px;
+  width: 300px;
+  border: 2px solid #142d41;
+}
+
+.search-bar input,
+.search-bar button {
+  background-color: transparent;
+  border: none;
+  color: white;
+}
+
+.search-bar input {
+  outline: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  width: 100%;
+}
+
+.search-bar:hover {
+  border: 2px solid white;
+  transition: 0.3s;
+}
+
+.search-bar button {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.search-bar img {
+  height: 25px;
+  padding-top: 5px;
 }

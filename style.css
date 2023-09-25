@@ -84,3 +84,69 @@ header img {
   height: 25px;
   padding-top: 5px;
 }
+
+/* main */ 
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.location {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.location h1 {
+  font-size: 35px;
+  margin-bottom: 10px;
+}
+
+.location h3 {
+  color: #346186;
+  font-size: 25px;
+}
+
+.main-data {
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.temp-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.temp-div img {
+  height: 100px;
+}
+
+.temp-div h1 {
+  font-size: 80px;
+}
+
+.main-data-stats h3 {
+  color: #346186;
+}
+
+.extra-data {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+}
+
+.extra-data div h3 {
+  color: #346186;
+  margin-bottom: 10px;
+}

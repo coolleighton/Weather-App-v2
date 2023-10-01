@@ -2,11 +2,14 @@
 
 // selectors and variables //
 let metric = true
-let city = "cardiff";
+let city = "london";
 const searchBarButton = document.querySelector("#search-bar-btn");
 const SearchBarInput = document.querySelector("#search-bar-text");
 const imperialBtn = document.querySelector("#imperial-button")
 const metricBtn = document.querySelector("#metric-button")
+const results = document.querySelector("#main")
+const loadingGif = document.querySelector("#loading-gif")
+const errorMessage = document.querySelector("#error-message")
 
 const cityLocation = document.querySelector("#location")
 const currentDate = document.querySelector("#current-date")
@@ -22,47 +25,14 @@ const sunset = document.querySelector("#sunset")
 const weatherIcon = document.querySelector("#weather-icon")
 
 
-// search bar functions //
-
-searchBarButton.addEventListener("click", () => {
-  if (SearchBarInput.value) {
-    getWeatherDataByCity(SearchBarInput.value);
-    city = SearchBarInput.value
-  } 
-});
-
-document.addEventListener('keypress', function (e) {
-  if (e.key === 'Enter') {
-    if (SearchBarInput.value) {
-      getWeatherDataByCity(SearchBarInput.value);
-      city = SearchBarInput.value
-    } 
-  }
-});
-
-// metric/imperial button functionality //
-
-imperialBtn.addEventListener("click", () => {
-  if(metric) {
-    metric = false
-    getWeatherDataByCity(city)
-    imperialBtn.classList.add("white-border")
-    metricBtn.classList.remove("white-border")
-  }
-})
-
-metricBtn.addEventListener("click", () => {
-  if(!metric) {
-    metric = true
-    getWeatherDataByCity(city)
-    metricBtn.classList.add("white-border")
-    imperialBtn.classList.remove("white-border")
-  }
-})
-
 // function that gets the lat + lon of a city and uses it as a parameter to get weather data //
 
 async function getWeatherDataByCity(city) {
+
+  main.style.display = "none"
+  errorMessage.style.display = "none"
+  loadingGif.style.display = "block"
+
   const response = await fetch(
     "http://api.openweathermap.org/geo/1.0/direct?q=" +
       city +
@@ -73,8 +43,20 @@ async function getWeatherDataByCity(city) {
     let lat = response[0].lat;
     let lon = response[0].lon;
     getWeatherData(lat, lon);
+  }).catch(error => {
+
+    main.style.display = "none"
+    loadingGif.style.display = "none"
+    errorMessage.style.display = "block"
+    errorMessage.textContent = 
+      "I'm sorry. '" + 
+      city + 
+      "' is not a city location we have heard of. Try entering a town or city name like 'London'"
+    
+    console.log("error")
   });
 }
+
 
 // function that gets weather data from lat + lon
 
@@ -117,6 +99,9 @@ async function getWeatherData(lat, lon) {
       wind.textContent = Math.round((response.wind.speed * 1.944)) + "knots"
       visibillity.textContent = Math.round((response.visibility / 1609)) + "miles"
     }
+    
+    main.style.display = "flex"
+    loadingGif.style.display = "none"
   });
 }
 
@@ -139,6 +124,7 @@ function capitalizeWords(str) {
   return capitalizedStr;
 }
 
+
 // function to convert unix time to standard time //
 
 function unixTimeToStandardTime(unixTimestamp) {
@@ -153,6 +139,7 @@ function unixTimeToStandardTime(unixTimestamp) {
 
   return standardTime;
 }
+
 
 // function to format the date //
 
@@ -176,6 +163,7 @@ function formatDate(date) {
   return formattedDate;
 }
 
+
 // kelvin to farenheit //
 
 function kelvinToFahrenheit(kelvin) {
@@ -184,5 +172,56 @@ function kelvinToFahrenheit(kelvin) {
 }
 
 
+// search bar functions //
+
+searchBarButton.addEventListener("click", () => {
+  if (SearchBarInput.value) {
+
+    getWeatherDataByCity(SearchBarInput.value);
+    city = SearchBarInput.value
+    SearchBarInput.value = ""
+  } 
+});
+
+document.addEventListener('keypress', function (e) {
+  if (e.key === 'Enter') {
+    if (SearchBarInput.value) {
+
+      getWeatherDataByCity(SearchBarInput.value);
+      city = SearchBarInput.value
+      SearchBarInput.value = ""
+    } 
+  }
+});
+
+// metric/imperial button functionality //
+
+imperialBtn.addEventListener("click", () => {
+  if(metric) {
+    metric = false
+    getWeatherDataByCity(city)
+    imperialBtn.classList.add("white-border")
+    metricBtn.classList.remove("white-border")
+  }
+})
+
+metricBtn.addEventListener("click", () => {
+  if(!metric) {
+    metric = true
+    getWeatherDataByCity(city)
+    metricBtn.classList.add("white-border")
+    imperialBtn.classList.remove("white-border")
+  }
+})
+
+
+// function to show loading img untill function is done //
+
+function showLoadingScreen() {
+  
+  setTimeout( () => {
+    
+  }, 2000)
+}
 
 getWeatherDataByCity(city)

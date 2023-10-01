@@ -45,6 +45,10 @@ header img {
   border: 2px solid #cecece;
 }
 
+.white-border {
+  border: 2px solid #cecece;
+}
+
 .search-bar {
   background-color: #142d41;
   display: flex;
